@@ -4,9 +4,51 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "44fb9e20410f2102e4ea159d4c2c807b",
-    "content-hash": "6a2d70427be8b6c0658e3cae0594b0f2",
+    "hash": "db0d781c727208b7169bac24d0e93e4c",
+    "content-hash": "025ffd0af59dd8ad20fd70642a2ab50d",
     "packages": [
+        {
+            "name": "bestmomo/scafold",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bestmomo/scafold.git",
+                "reference": "ce8fe0cb84c14ae28cf724fff28e42bf6a042391"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bestmomo/scafold/zipball/ce8fe0cb84c14ae28cf724fff28e42bf6a042391",
+                "reference": "ce8fe0cb84c14ae28cf724fff28e42bf6a042391",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.1",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Bestmomo\\Scafold\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylorotwell@gmail.com"
+                },
+                {
+                    "name": "Bestmomo",
+                    "email": "grandheretique@free.fr"
+                }
+            ],
+            "description": "To add scafold to Laravel 5.1",
+            "homepage": "http://github.com/bestmomo/scafold",
+            "time": "2015-09-30 17:35:12"
+        },
         {
             "name": "classpreloader/classpreloader",
             "version": "3.0.0",
@@ -216,6 +258,52 @@
                 "string"
             ],
             "time": "2015-11-06 14:35:42"
+        },
+        {
+            "name": "illuminate/html",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/illuminate/html.git",
+                "reference": "3d1009bb8e0f25720c914af5c1f4015dd373c9ef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/illuminate/html/zipball/3d1009bb8e0f25720c914af5c1f4015dd373c9ef",
+                "reference": "3d1009bb8e0f25720c914af5c1f4015dd373c9ef",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/http": "~5.0",
+                "illuminate/session": "~5.0",
+                "illuminate/support": "~5.0",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Illuminate\\Html\\": ""
+                },
+                "files": [
+                    "helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylorotwell@gmail.com"
+                }
+            ],
+            "time": "2015-01-01 16:31:18"
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -3224,8 +3312,10 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "bestmomo/scafold": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
