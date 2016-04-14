@@ -2,6 +2,10 @@
 
 namespace CodeDelivery\Http;
 
+use CodeDelivery\Http\Middleware\Authenticate;
+use CodeDelivery\Http\Middleware\CheckRole;
+use CodeDelivery\Http\Middleware\RedirectIfAuthenticated;
+use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -26,8 +30,9 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \CodeDelivery\Http\Middleware\Authenticate::class,
-        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'guest' => \CodeDelivery\Http\Middleware\RedirectIfAuthenticated::class,
+        'auth' => Authenticate::class,
+        'auth.basic' => AuthenticateWithBasicAuth::class,
+        'guest' => RedirectIfAuthenticated::class,
+        'auth.checkrole' => CheckRole::class,
     ];
 }
