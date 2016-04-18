@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get ('/home', function(){
+    return redirect()->route('admin.orders.index');
+});
+
 Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole', 'as' => 'admin.'], function(){
     Route::group(['prefix' => 'categories', 'as' => 'categories.'], function(){
         Route::get (''           , ['as'   => 'index' , 'uses' => 'CategoriesController@index']);
@@ -39,5 +43,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole', 'as' => 'ad
         Route::post('store'       , ['as'   => 'store'  , 'uses' => 'ClientsController@store']);
         Route::get ('edit/{id}'   , ['as'   => 'edit'   , 'uses' => 'ClientsController@edit']);
         Route::post('update/{id}' , ['as'   => 'update' , 'uses' => 'ClientsController@update']);
+    });
+
+    Route::group(['prefix' => 'orders', 'as' => 'orders.'], function(){
+        Route::get (''            , ['as'   => 'index'  , 'uses' => 'OrdersController@index']);
+        Route::get ('edit/{id}'   , ['as'   => 'edit'   , 'uses' => 'OrdersController@edit']);
+        Route::post('update/{id}' , ['as'   => 'update' , 'uses' => 'OrdersController@update']);
     });
 });

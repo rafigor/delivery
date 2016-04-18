@@ -25,7 +25,7 @@ class ProductsController extends Controller
     }
 
     public function create(){
-        $categories = $this->categoryRepository->lists('name', 'id');
+        $categories = $this->categoryRepository->getCategories();
         return view('admin.products.create', compact('categories'));
     }
 
