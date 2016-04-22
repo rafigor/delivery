@@ -7,7 +7,6 @@ use CodeDelivery\Repositories\CategoryRepository;
 use CodeDelivery\Http\Requests;
 use CodeDelivery\Http\Controllers\Controller;
 use CodeDelivery\Repositories\OrderRepository;
-use CodeDelivery\Repositories\ProductRepository;
 use CodeDelivery\Repositories\UserRepository;
 use CodeDelivery\Services\OrderService;
 use Illuminate\Http\Request;
@@ -18,19 +17,16 @@ class ClientCheckoutController extends Controller
 {
     private $repository;
     private $userRepository;
-    private $productRepository;
     private $orderService;
 
     public function __construct(OrderRepository $repository,
                                 UserRepository $userRepository,
-                                ProductRepository $productRepository,
                                 OrderService $orderService
 
     )
     {
         $this->repository = $repository;
         $this->userRepository = $userRepository;
-        $this->productRepository = $productRepository;
         $this->orderService = $orderService;
     }
 
@@ -62,5 +58,4 @@ class ClientCheckoutController extends Controller
         });
         return $o;
     }
-
 }

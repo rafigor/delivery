@@ -1,19 +1,20 @@
 <?php
 
-namespace CodeDelivery\Http\Controllers\Api\Client;
+namespace CodeDelivery\Http\Controllers\Api\Deliveryman;
 
 use CodeDelivery\Http\Requests\AdminCategoryRequest;
 use CodeDelivery\Repositories\CategoryRepository;
 use CodeDelivery\Http\Requests;
 use CodeDelivery\Http\Controllers\Controller;
 use CodeDelivery\Repositories\OrderRepository;
+use CodeDelivery\Repositories\ProductRepository;
 use CodeDelivery\Repositories\UserRepository;
 use CodeDelivery\Services\OrderService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 
-class ClientCheckoutController extends Controller
+class DeliverymanCheckoutController extends Controller
 {
     private $repository;
     private $userRepository;
@@ -30,32 +31,27 @@ class ClientCheckoutController extends Controller
         $this->orderService = $orderService;
     }
 
-    public function store(Request $request){
-        $data = $request->all();
-        $id = Authorizer::getResourceOwnerId();
-        $clientId = $this->userRepository->find($id)->client->id;
-        $data['client_id'] = $clientId;
-        $o = $this->orderService->create($data);
-        $order = $this->repository->with('items')->find($o->id);
-
-        return $order;
-    }
-
     public function index(){
-        $id = Authorizer::getResourceOwnerId();
-        $clientId = $this->userRepository->find($id)->client->id;
-        $orders = $this->repository->with('items')->scopeQuery(function($query) use($clientId){
-            return $query->where('client_id', '=', $clientId);
+        $idDeliveryman = Authorizer::getResourceOwnerId();
+        $orders = $this->repository->with('items')->scopeQuery(function($query) use($idDeliveryman){
+            return $query->where('user_deliveryman_id', '=', $idDeliveryman);
         })->paginate();
 
         return $orders;
     }
 
     public function show($id){
-        $o = $this->repository->with(['client', 'items', 'cupom'])->find($id);
-        $o->items->each(function($item){
-            $item->product;
-        });
-        return $o;
+        $idDeliveryman = Authorizer::getResourceOwnerId();
+        return $this->repository->getByIdAndDeliveryman($id, $idDeliveryman);
     }
+
+    public function update(Request $request, $id){
+        $idDeliveryman = Authorizer::getResourceOwnerId();
+        $order = $this->orderService->update($id, $idDeliveryman, $request->get('status'));
+        if($order) {
+            return $order;
+        }
+        abort(400, "Ordem não encontrada.");
+    }
+
 }
