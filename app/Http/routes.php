@@ -73,13 +73,11 @@ Route::post('oauth/access_token', function() {
 });
 
 Route::group(['prefix' => 'api', 'middleware' => 'oauth', 'as' => 'api.'], function(){
-    Route::get ('pedidos', function(){
+    Route::get ('teste', ['as' => 'teste', 'uses' => function(){
         return [
-            'id' => 1,
-            'client' => 'Rafael',
-            'valor' => 10
+            'message' => 'success',
+            'error' => false,
+            'status' => 'ok'
         ];
-
-    });
-
+    }]);
 });
