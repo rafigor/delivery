@@ -2,7 +2,7 @@
 
 namespace CodeDelivery\Http\Controllers\Auth;
 
-use CodeDelivery\User;
+use CodeDelivery\Repositories\UserRepository;
 use Validator;
 use CodeDelivery\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -22,15 +22,20 @@ class AuthController extends Controller
     */
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+    /**
+     * @var UserRepository
+     */
+    private $repository;
 
     /**
      * Create a new authentication controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserRepository $repository)
     {
         $this->middleware('guest', ['except' => 'getLogout']);
+        $this->repository = $repository;
     }
 
     /**
@@ -56,7 +61,7 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        return $this->repository->create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
