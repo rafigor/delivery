@@ -4,6 +4,7 @@ namespace CodeDelivery\Http;
 
 use CodeDelivery\Http\Middleware\Authenticate;
 use CodeDelivery\Http\Middleware\CheckRole;
+use CodeDelivery\Http\Middleware\OAuthCheckRole;
 use CodeDelivery\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -31,14 +32,15 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => Authenticate::class,
-        'auth.basic' => AuthenticateWithBasicAuth::class,
-        'guest' => RedirectIfAuthenticated::class,
-        'auth.checkrole' => CheckRole::class,
-//        'csrf' => \CodeDelivery\Http\Middleware\VerifyCsrfToken::class,
-        'oauth' => \LucaDegasperi\OAuth2Server\Middleware\OAuthMiddleware::class,
-        'oauth-user' => \LucaDegasperi\OAuth2Server\Middleware\OAuthUserOwnerMiddleware::class,
-        'oauth-client' => \LucaDegasperi\OAuth2Server\Middleware\OAuthClientOwnerMiddleware::class,
+        'auth'            => Authenticate::class,
+        'auth.basic'      => AuthenticateWithBasicAuth::class,
+        'guest'           => RedirectIfAuthenticated::class,
+        'auth.checkrole'  => CheckRole::class,
+        'oauth.checkrole' => OAuthCheckRole::class,
+
+        'oauth'                      => \LucaDegasperi\OAuth2Server\Middleware\OAuthMiddleware::class,
+        'oauth-user'                 => \LucaDegasperi\OAuth2Server\Middleware\OAuthUserOwnerMiddleware::class,
+        'oauth-client'               => \LucaDegasperi\OAuth2Server\Middleware\OAuthClientOwnerMiddleware::class,
         'check-authorization-params' => \LucaDegasperi\OAuth2Server\Middleware\CheckAuthCodeRequestMiddleware::class,
     ];
 }
