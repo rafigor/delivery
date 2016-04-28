@@ -80,7 +80,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'oauth', 'as' => 'api.'], funct
             'status' => 'ok'
         ];
     }]);
- 
+
+    Route::get ('authenticated', ['as' => 'authenticated', 'uses' => 'Api\ApiController@authenticated']);
 
     Route::group(['prefix' => 'client', 'middleware' => 'oauth.checkrole:client'], function(){
         Route::resource('order', 'Api\Client\ClientCheckoutController', ['except' => ['create', 'edit', 'destroy']]);
