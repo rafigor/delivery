@@ -61,11 +61,14 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
+        if (!isset($data['role'])){
+            $data['role'] = 'client';
+        }
         return $this->repository->create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'role' => 'admin'
+            'role' => $data['role']
         ]);
     }
 }
