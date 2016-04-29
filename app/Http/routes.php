@@ -72,7 +72,7 @@ Route::post('oauth/access_token', function() {
     return Response::json(Authorizer::issueAccessToken());
 });
 
-Route::group(['prefix' => 'api', 'middleware' => 'oauth', 'as' => 'api.'], function(){
+Route::group(['prefix' => 'api', 'middleware' => 'oauth'], function(){
     Route::get ('teste', ['as' => 'teste', 'uses' => function(){
         return [
             'message' => 'success',
