@@ -27,7 +27,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-oauth2'])
   OAuthProvider.configure({
     baseUrl: 'https://delivery.localhost.com/',
     clientId: 'appid01',
-    clientSecret: 'secret' // optional
+    clientSecret: 'secret', // optional
+    grantPath: '/oauth/access_token'
   });
 
   OAuthTokenProvider.configure({
@@ -42,5 +43,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-oauth2'])
         url: '/login',
         templateUrl: 'templates/login.html',
         controller: 'LoginCtrl'
+      }).state('home', {
+        url: '/home',
+        templateUrl: 'templates/home.html',
+        controller: function($scope){
+
+        }
       })
 });
