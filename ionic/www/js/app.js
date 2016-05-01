@@ -4,14 +4,17 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 angular
+    .module('starter.controllers', []);
+
+angular
     .module('starter', [
         'ionic',
         'starter.controllers',
-        'angular-oauth2'
+        'angular-oauth2',
+        'ngResource'
     ])
-
-    .constant('appConfig', {
-        'baseUrl': 'https://delivery.localhost.com'
+    .constant('appConfig',{
+        baseUrl: 'delivery.localhost.com'
     })
 
     .run(function($ionicPlatform) {
@@ -50,14 +53,32 @@ angular
 
         $stateProvider
             .state('login', {
-                url: '/login',
-                templateUrl: 'templates/login.html',
+                url: "/login",
+                templateUrl: "templates/login.html",
                 controller: 'LoginCtrl'
             })
             .state('home', {
-                url: '/home',
-                templateUrl: 'templates/home.html',
-                controller: function($scope){
-                }
+                 url: '/home',
+                templateUrl: 'templates/home.html'
+            })
+            .state('client', {
+                abstract: true,
+                url: '/client',
+                template: "<ui-view/>"
+            })
+            .state('checkout',{
+                url:'/checkout',
+                templateUrl: 'templates/client/checkout.html',
+                controller: 'ClientCheckoutCtrl'
+            })
+            .state('checkout_item_detail',{
+                url:'/checkout/detail/:index',
+                templateUrl:'templates/client/checkout-detail.html',
+                controller: 'ClientCheckoutDetailCtrl'
+            })
+            .state('view_products',{
+                url:'/view_products',
+                templateUrl: 'templates/client/view-product.html',
+                controller: 'ClientViewProductCtrl'
             })
     });
