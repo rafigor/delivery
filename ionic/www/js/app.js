@@ -3,18 +3,24 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular
-    .module('starter.controllers', []);
+angular.module('starter.controllers', []);
+angular.module('starter.services', []);
+
 
 angular
     .module('starter', [
         'ionic',
         'starter.controllers',
+        'starter.services',
         'angular-oauth2',
         'ngResource'
     ])
     .constant('appConfig',{
-        baseUrl: 'delivery.localhost.com'
+        baseUrl: 'https://delivery.localhost.com',
+        methods: {
+            products: '/api/client/products',
+            authenticated: '/api/authenticated'
+        }
     })
 
     .run(function($ionicPlatform) {
@@ -59,24 +65,25 @@ angular
             })
             .state('home', {
                  url: '/home',
-                templateUrl: 'templates/home.html'
+                templateUrl: 'templates/home.html',
+                controller: 'HomeCtrl'
             })
             .state('client', {
-                abstract: true,
                 url: '/client',
-                template: "<ui-view/>"
+                abstract: true,
+                template: '<ion-nav-view/>'
             })
-            .state('checkout',{
+            .state('client.checkout',{
                 url:'/checkout',
                 templateUrl: 'templates/client/checkout.html',
                 controller: 'ClientCheckoutCtrl'
             })
-            .state('checkout_item_detail',{
+            .state('client.checkout_item_detail',{
                 url:'/checkout/detail/:index',
                 templateUrl:'templates/client/checkout-detail.html',
                 controller: 'ClientCheckoutDetailCtrl'
             })
-            .state('view_products',{
+            .state('client.view_products',{
                 url:'/view_products',
                 templateUrl: 'templates/client/view-product.html',
                 controller: 'ClientViewProductCtrl'

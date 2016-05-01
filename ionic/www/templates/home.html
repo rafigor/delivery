@@ -3,6 +3,12 @@
         Code Delivery - Home
     </ion-nav-title>
     <ion-content class="padding">
-        Home
+        <div class="list">
+            <a class="item item-avatar" href="#">
+                <img src="img/user.png">
+                <h2>{{userAuthenticated.name}}</h2>
+                <p>{{userAuthenticated.email}}</p>
+            </a>
+        </div>
     </ion-content>
 </ion-view>
