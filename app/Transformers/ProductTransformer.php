@@ -23,7 +23,10 @@ class ProductTransformer extends TransformerAbstract
         return [
             'id'         => (int) $model->id,
             'name'       => (string) $model->name,
+            'description'=> (string) $model->description,
             'price'      => (float) $model->price,
+            'created_at' => $model->created_at,
+            'updated_at' => $model->updated_at,
         ];
     }
 }
