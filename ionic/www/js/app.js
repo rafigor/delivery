@@ -45,7 +45,7 @@ angular
         });
     })
 
-    .config(function($stateProvider, OAuthProvider, OAuthTokenProvider, appConfig){
+    .config(function($stateProvider, OAuthProvider, OAuthTokenProvider, appConfig, $urlRouterProvider){
 
         OAuthProvider.configure({
             baseUrl: appConfig.baseUrl,
@@ -60,6 +60,8 @@ angular
                 secure: false
             }
         });
+
+        $urlRouterProvider.otherwise('login');
 
         $stateProvider
             .state('login', {
@@ -97,5 +99,11 @@ angular
                 url:'/view_products',
                 templateUrl: 'templates/client/view-product.html',
                 controller: 'ClientViewProductCtrl'
+            })
+            .state('client.orders',{
+                cache: false,
+                url:'/orders',
+                templateUrl: 'templates/client/order.html',
+                controller: 'OrderCtrl'
             })
     });

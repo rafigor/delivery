@@ -13,4 +13,8 @@ angular.module('starter.controllers')
         }, function(dataError){
             $ionicLoading.hide();
         });
+
+        $scope.openListOrder = function(){
+            $state.go('client.orders');
+        };
     }]);

@@ -1,0 +1,22 @@
+<ion-view>
+    <ion-nav-title>Meus Pedidos</ion-nav-title>
+    <div class="bar bar-subheader">
+        <button class="button button-clear button-icon ion-plus" ng-click="openNewOrder()"></button>
+        <h2 class="title">Total pedidos: {{orders.length}} </h2>
+    </div>
+    <ion-content class="padding has-subheader">
+        <ion-list>
+            <ion-item ng-repeat="o in orders">
+                <div class="row">
+                    <div class="col">
+                        <h2>{{o.created_at.date | limitTo: 10 | date:'dd/MM/yyyy'}}</h2>
+                        <i class="ion ion-ios-cart"> {{o.items.data.length}} Items</i>
+                    </div>
+                    <div class="col text-right">
+                        <i class="ion ion-social-usd"> {{o.total|number:2}}</i>
+                    </div>
+                </div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>
