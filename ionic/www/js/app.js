@@ -19,7 +19,11 @@ angular
         baseUrl: 'https://delivery.localhost.com',
         methods: {
             products: '/api/client/products',
-            authenticated: '/api/authenticated'
+            authenticated: '/api/authenticated',
+            order: {
+                save: '/api/client/store',
+                get: '/api/client/order/:id'
+            }
         }
     })
 
@@ -74,6 +78,7 @@ angular
                 template: '<ion-nav-view/>'
             })
             .state('client.checkout',{
+                cache: false,
                 url:'/checkout',
                 templateUrl: 'templates/client/checkout.html',
                 controller: 'ClientCheckoutCtrl'
@@ -82,6 +87,11 @@ angular
                 url:'/checkout/detail/:index',
                 templateUrl:'templates/client/checkout-detail.html',
                 controller: 'ClientCheckoutDetailCtrl'
+            })
+            .state('client.checkout_sucessful',{
+                url:'/checkout/sucessful',
+                templateUrl:'templates/client/checkout-sucessful.html',
+                controller: 'ClientCheckoutSucessful'
             })
             .state('client.view_products',{
                 url:'/view_products',

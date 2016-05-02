@@ -1,8 +1,27 @@
-<ion-view cache-view="false" view-title="My Title!">
-    <ion-nav-title>
-        Checkout
-    </ion-nav-title>
-    <ion-content class="padding">
-        Checkout
+<ion-view>
+    <ion-nav-title>Carrinho</ion-nav-title>
+    <div class="bar bar-subheader">
+        <button class="button button-clear button-icon ion-plus" ng-click="openListProducts()"></button>
+        <h2 class="title">Total: {{total | currency:"R$"}}</h2>
+        <button class="button button-clear button-icon ion-minus-circled" ng-click="showDelete = !showDelete"></button>
+    </div>
+    <ion-content class="padding has-subheader">
+        <ion-list show-delete="showDelete">
+            <ion-item ng-repeat="o in items" ng-click="openProductDetail($index)">
+                <h2>{{o.name}}</h2>
+                <div class="row">
+                    <div class="col">
+                        Qtd: {{o.qtd}}<br/>
+                        <i class="ion ion-cash"> {{o.price | currency:"R$"}}</i>
+                    </div>
+                    <div class="col text-right">
+                        <i class="ion ion-social-usd"> {{o.subtotal | currency:"R$"}}</i>
+                    </div>
+                </div>
+                <ion-delete-button class="ion ion-minus-circled" ng-click="removeItem($index)"></ion-delete-button>
+            </ion-item>
+        </ion-list>
+        <button type="button" class="button button-positive button-full" ng-click="save()">Salvar pedido</button>
+        <button type="button" class="button button-assertive button-full" ng-click="clearCart()">Limpar carrinho</button>
     </ion-content>
 </ion-view>
