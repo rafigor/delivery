@@ -22,28 +22,30 @@ angular.module('starter.controllers')
             };
 
             $scope.save = function(){
-                $ionicLoading.show({
-                    template: 'Criando pedido...'
-                });
-                var o = {
-                    items: angular.copy($scope.items)
-                };
-                angular.forEach(o.items, function(item){
-                    item.product_id = item.id;
-                });
-                if($scope.cupom.value){
-                    o.cupom_code = $scope.cupom.code;
-                };
-                Order.save({id: null}, o, function(data){
-                    $ionicLoading.hide();
-                    $state.go('client.checkout_sucessful');
-                }, function(dataError){
-                    $ionicLoading.hide();
-                    $ionicPopup.alert({
-                        title: 'Advertência',
-                        template: 'Pedido não realizado. Tente novamente'
+                if(validateCupom()){                
+                    $ionicLoading.show({
+                        template: 'Criando pedido...'
                     });
-                });
+                    var o = {
+                        items: angular.copy($scope.items)
+                    };
+                    angular.forEach(o.items, function(item){
+                        item.product_id = item.id;
+                    });
+                    if($scope.cupom.value){
+                        o.cupom_code = $scope.cupom.code;
+                    };
+                    Order.save({id: null}, o, function(data){
+                        $ionicLoading.hide();
+                        $state.go('client.checkout_sucessful');
+                    }, function(dataError){
+                        $ionicLoading.hide();
+                        $ionicPopup.alert({
+                            title: 'Advertência',
+                            template: 'Pedido não realizado. Tente novamente'
+                        });
+                    });
+                }   
             };
 
             $scope.clearCart = function(){
@@ -91,5 +93,18 @@ angular.module('starter.controllers')
                     });
                 });
             };
+
+            function validateCupom(){
+                if (($scope.cupom) && ($scope.cupom.value)){
+                    if ($scope.cupom.value > $cart.get().total){
+                        $ionicPopup.alert({
+                            title: 'Advertência',
+                            template: 'Valor do cupom maior que o pedido. Adicione mais itens'
+                        });
+                        return false;
+                    }
+                }
+                return true;
+            }
         }
     ]);
