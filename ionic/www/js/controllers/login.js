@@ -2,8 +2,8 @@ angular.module('starter.controllers')
     .controller('LoginCtrl', ['$scope', 'OAuth', '$ionicPopup', '$state', function($scope, OAuth, $ionicPopup, $state){
 
         $scope.user = {
-            username: '',
-            password: ''
+            username: 'user@user.com',
+            password: '123456'
         };
 
         $scope.login = function(){

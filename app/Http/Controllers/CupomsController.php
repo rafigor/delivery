@@ -27,7 +27,8 @@ class CupomsController extends Controller
     }
 
     public function store(AdminCupomRequest $request){
-        $this->repository->create($request->all());
+        $data = $request->all(); 
+        $this->repository->create($data);
         return redirect()->route('admin.cupoms.index');
     }
 

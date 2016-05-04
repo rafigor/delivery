@@ -13,17 +13,16 @@ angular
         'starter.controllers',
         'starter.services',
         'angular-oauth2',
-        'ngResource'
+        'ngResource',
+        'ngCordova'
     ])
     .constant('appConfig',{
-        baseUrl: 'https://delivery.localhost.com',
+        baseUrl: 'http://ec2-52-39-91-55.us-west-2.compute.amazonaws.com',
         methods: {
             products: '/api/client/products',
             authenticated: '/api/authenticated',
-            order: {
-                save: '/api/client/store',
-                get: '/api/client/order/:id'
-            }
+            order: '/api/client/order/:id',
+            cupom: '/api/cupom/:code'
         }
     })
 
@@ -45,7 +44,7 @@ angular
         });
     })
 
-    .config(function($stateProvider, OAuthProvider, OAuthTokenProvider, appConfig, $urlRouterProvider){
+    .config(function($stateProvider, OAuthProvider, OAuthTokenProvider, appConfig, $urlRouterProvider, $provide){
 
         OAuthProvider.configure({
             baseUrl: appConfig.baseUrl,
@@ -86,6 +85,7 @@ angular
                 controller: 'ClientCheckoutCtrl'
             })
             .state('client.checkout_item_detail',{
+                cache: false,
                 url:'/checkout/detail/:index',
                 templateUrl:'templates/client/checkout-detail.html',
                 controller: 'ClientCheckoutDetailCtrl'
@@ -96,6 +96,7 @@ angular
                 controller: 'ClientCheckoutSucessful'
             })
             .state('client.view_products',{
+                cache: false,
                 url:'/view_products',
                 templateUrl: 'templates/client/view-product.html',
                 controller: 'ClientViewProductCtrl'
@@ -106,4 +107,34 @@ angular
                 templateUrl: 'templates/client/order.html',
                 controller: 'OrderCtrl'
             })
+
+        $provide.decorator('OAuthToken',['$localStorage','$delegate',function($localStorage, $delegate){
+            Object.defineProperties($delegate, {
+                setToken: {
+                    value: function(data){
+                        return $localStorage.setObject('token',data);
+                    },
+                    enumerable: true,
+                    configurable: true,
+                    writable: true
+                },
+                getToken: {
+                    value: function(data){
+                        return $localStorage.getObject('token');
+                    },
+                    enumerable: true,
+                    configurable: true,
+                    writable: true
+                },
+                removeToken: {
+                    value: function(data){
+                        return $localStorage.setObject('token',null);
+                    },
+                    enumerable: true,
+                    configurable: true,
+                    writable: true
+                }
+            });
+            return $delegate;
+        }]);
     });
