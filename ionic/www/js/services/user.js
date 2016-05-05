@@ -3,6 +3,10 @@ angular.module('starter.services')
         return $resource(appConfig.baseUrl + appConfig.methods.authenticated, {}, {
             query: {
                 isArray: false
+            },
+            authenticated: {
+                method: 'GET',
+                url: appConfig.baseUrl + appConfig.methods.authenticated
             }
         });
     }]);

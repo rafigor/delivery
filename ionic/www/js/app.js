@@ -5,24 +5,26 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('starter.controllers', []);
 angular.module('starter.services', []);
-
+angular.module('starter.filters', []);
 
 angular
     .module('starter', [
         'ionic',
         'starter.controllers',
         'starter.services',
+        'starter.filters',
         'angular-oauth2',
         'ngResource',
         'ngCordova'
     ])
     .constant('appConfig',{
         baseUrl: 'http://ec2-52-39-91-55.us-west-2.compute.amazonaws.com',
+        // baseUrl: 'http://delivery.localhost.com',
         methods: {
-            products: '/api/client/products',
-            authenticated: '/api/authenticated',
-            order: '/api/client/order/:id',
-            cupom: '/api/cupom/:code'
+            products      : '/api/client/products',
+            authenticated : '/api/authenticated',
+            order         : '/api/client/order/:id',
+            cupom         : '/api/cupom/:code'
         }
     })
 
@@ -68,15 +70,11 @@ angular
                 templateUrl: "templates/login.html",
                 controller: 'LoginCtrl'
             })
-            .state('home', {
-                 url: '/home',
-                templateUrl: 'templates/home.html',
-                controller: 'HomeCtrl'
-            })
             .state('client', {
                 url: '/client',
                 abstract: true,
-                template: '<ion-nav-view/>'
+                templateUrl: 'templates/client/menu.html',
+                controller: 'ClientMenuCtrl'
             })
             .state('client.checkout',{
                 cache: false,
@@ -107,6 +105,12 @@ angular
                 templateUrl: 'templates/client/order.html',
                 controller: 'OrderCtrl'
             })
+            .state('client.view_order',{
+                url:'/view_order/:id',
+                templateUrl: 'templates/client/view_order.html',
+                controller: 'OrderViewCtrl'
+            })
+
 
         $provide.decorator('OAuthToken',['$localStorage','$delegate',function($localStorage, $delegate){
             Object.defineProperties($delegate, {

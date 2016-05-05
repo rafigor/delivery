@@ -1,0 +1,29 @@
+<ion-view>
+    <ion-nav-title>Pedido: #{{order.id}}</ion-nav-title>
+    <div class="bar bar-subheader">
+        <h2 class="title">Total: {{order.total | currency:"R$"}} </h2>
+    </div>
+    <ion-content class="padding has-subheader">
+        <div class="item item-divider">
+            Data da compra: {{order.created_at.date | limitTo: 10 | date:'dd/MM/yyyy'}}
+        </div>
+        <ion-item class="item-dark" ng-show="order.cupom.data.value != null">
+            <strong>Cupom</strong>
+            <span class="badge badge-dark">{{order.cupom.data.value|currency:"R$"}}</span>
+        </ion-item>
+        <ion-list>
+            <ion-item ng-repeat="o in order.items.data">
+                {{o.product.data.name}}
+                <div class="row">
+                    <div class="col">
+                        Qtd: {{o.qtd}}<br/>
+                        <i class="ion ion-cash"> {{o.price | currency:"R$"}}</i>
+                    </div>
+                    <div class="col text-right">
+                        <i class="ion ion-social-usd"> {{o.price*o.qtd | currency:"R$"}}</i>
+                    </div>
+                </div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

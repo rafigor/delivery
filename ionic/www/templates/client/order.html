@@ -1,12 +1,12 @@
 <ion-view>
     <ion-nav-title>Meus Pedidos</ion-nav-title>
     <div class="bar bar-subheader">
-        <button class="button button-clear button-icon ion-plus" ng-click="openNewOrder()"></button>
         <h2 class="title">Total pedidos: {{orders.length}} </h2>
     </div>
     <ion-content class="padding has-subheader">
+        <ion-refresher pulling-text="Atualizar..." on-refresh="doRefresh()"></ion-refresher>
         <ion-list>
-            <ion-item ng-repeat="o in orders">
+            <ion-item ng-repeat="o in orders" ng-click="openOrderDetail(o)">
                 <h2>{{o.statusName}}</h2>
                 <div class="row">
                     <div class="col">

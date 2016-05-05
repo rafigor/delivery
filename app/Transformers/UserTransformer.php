@@ -11,6 +11,7 @@ use League\Fractal\TransformerAbstract;
  */
 class UserTransformer extends TransformerAbstract
 {
+    protected $availableIncludes = ['client'];
 
     /**
      * Transform the \Client entity
@@ -26,5 +27,9 @@ class UserTransformer extends TransformerAbstract
             'email'      => (string) $model->email,
             'role'       => (string) $model->role,
         ];
+    }
+
+    public function includeClient(User $model){
+        return $this->item($model->client, new ClientTransformer());
     }
 }
