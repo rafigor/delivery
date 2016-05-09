@@ -21,10 +21,13 @@ angular
         baseUrl: 'http://ec2-52-39-91-55.us-west-2.compute.amazonaws.com',
         // baseUrl: 'http://delivery.localhost.com',
         methods: {
-            products      : '/api/client/products',
-            authenticated : '/api/authenticated',
-            order         : '/api/client/order/:id',
-            cupom         : '/api/cupom/:code'
+            authenticated    : '/api/authenticated',
+            products         : '/api/client/products',
+            clientOrder      : '/api/client/order/:id',
+            cupom            : '/api/cupom/:code',
+
+            deliverymanOrder : '/api/deliveryman/order/:id',
+
         }
     })
 
@@ -71,6 +74,7 @@ angular
                 controller: 'LoginCtrl'
             })
             .state('client', {
+                cache: false,
                 url: '/client',
                 abstract: true,
                 templateUrl: 'templates/client/menu.html',
@@ -111,13 +115,14 @@ angular
                 controller: 'OrderViewCtrl'
             })
             .state('deliveryman', {
+                cache: false,
                 url: '/deliveryman',
                 abstract: true,
                 templateUrl: 'templates/deliveryman/menu.html',
                 controller: 'DeliverymanMenuCtrl'
             })
-            .state('deliveryman.order', {
-                url: '/order',
+            .state('deliveryman.orders', {
+                url: '/orders',
                 templateUrl: 'templates/deliveryman/order.html',
                 controller: 'DeliverymanOrderCtrl'
             })

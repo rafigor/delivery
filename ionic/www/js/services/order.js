@@ -1,6 +1,13 @@
 angular.module('starter.services')
-    .factory('Order',['$resource', 'appConfig', function($resource, appConfig){
-        return $resource(appConfig.baseUrl + appConfig.methods.order, {id: '@id'}, {
+    .factory('ClientOrder',['$resource', 'appConfig', function($resource, appConfig){
+        return $resource(appConfig.baseUrl + appConfig.methods.clientOrder, {id: '@id'}, {
+            query: {
+                isArray: false
+            }
+        });
+    }])
+    .factory('DeliverymanOrder',['$resource', 'appConfig', function($resource, appConfig){
+        return $resource(appConfig.baseUrl + appConfig.methods.deliverymanOrder, {id: '@id'}, {
             query: {
                 isArray: false
             }

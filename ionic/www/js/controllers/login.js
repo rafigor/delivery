@@ -17,7 +17,11 @@ angular.module('starter.controllers')
                 })
                 .then(function(data){
                     UserData.set(data.data);
-                    $state.go('client.orders');
+                    if(data.data.role == 'client') {
+                        $state.go('client.orders');
+                    } else if(data.data.role == 'deliveryman'){
+                        $state.go('deliveryman.orders');
+                    }
                 }, function(responseError){
                     UserData.set({});
                     OAuthToken.removeToken();
