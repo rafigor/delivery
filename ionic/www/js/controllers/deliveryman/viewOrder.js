@@ -10,7 +10,7 @@ angular.module('starter.controllers')
             });
 
             DeliverymanOrder.get({id: $stateParams.id, include: 'items,cupom'}, function(data){
-                $scope.order = data;
+                $scope.order = data.data;
                 $ionicLoading.hide();
             }, function(dataError){
                 $ionicLoading.hide();

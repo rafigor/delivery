@@ -85,6 +85,7 @@ Route::group(['middleware' => 'cors'], function(){
 
         Route::group(['prefix' => 'deliveryman', 'middleware' => 'oauth.checkrole:deliveryman'], function(){
             Route::resource('order', 'Api\Deliveryman\DeliverymanCheckoutController', ['except' => ['create', 'edit', 'destroy', 'store']]);
+            Route::post('order/{id}/geo',['as' => 'geo', 'uses' => 'Api\Deliveryman\DeliverymanCheckoutController@geo']);
         });
     });
 });
