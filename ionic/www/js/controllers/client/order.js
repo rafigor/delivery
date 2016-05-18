@@ -1,7 +1,7 @@
 angular.module('starter.controllers')
     .controller('OrderCtrl', [
-        '$scope', '$state', '$ionicLoading', '$ionicPopup', 'ClientOrder',
-        function($scope, $state, $ionicLoading, $ionicPopup, ClientOrder){
+        '$scope', '$state', '$ionicLoading', '$ionicPopup', '$ionicActionSheet', 'ClientOrder',
+        function($scope, $state, $ionicLoading, $ionicPopup, $ionicActionSheet, ClientOrder){
 
             $scope.orders = [];
 
@@ -29,7 +29,35 @@ angular.module('starter.controllers')
                         template: 'Não foi possível buscar a lista de pedidos. Tente novamente'
                     });
                 });
-            }
+            };
+
+            $scope.showActionSheet = function(order) {
+                $ionicActionSheet.show({
+                    buttons: [
+                        {
+                            text:  'Detalhes'
+                        },
+                        {
+                            text: 'Entrega'
+                        }
+                    ],
+                    titleText: 'Opções',
+                    cancelText: 'Cancelar',
+                    cancel: function(){
+                        //cancelar
+                    },
+                    buttonClicked: function(index){
+                        switch(index){
+                            case 0:
+                                $state.go('client.view_order', {id: order.id});
+                                break;
+                            case 1:
+                                $state.go('client.view_delivery', {id: order.id});
+                                break;
+                        }
+                    }
+                });
+            };
 
             $ionicLoading.show({
                 template: 'Carregando...'

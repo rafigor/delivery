@@ -27,6 +27,7 @@ class OrderTransformer extends TransformerAbstract
             'total'      => (float) $model->total,
             'status'     => (int) $model->status,
             'created_at' => $model->created_at,
+            'hash'       => $model->hash
         ];
     }
 

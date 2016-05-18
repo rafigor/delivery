@@ -15,11 +15,13 @@ angular
         'starter.filters',
         'angular-oauth2',
         'ngResource',
-        'ngCordova'
+        'ngCordova',
+        'uiGmapgoogle-maps',
+        'pusher-angular'
     ])
     .constant('appConfig',{
-        baseUrl: 'http://ec2-52-39-91-55.us-west-2.compute.amazonaws.com',
-        // baseUrl: 'http://delivery.localhost.com',
+        // baseUrl: 'http://ec2-52-39-91-55.us-west-2.compute.amazonaws.com',
+        baseUrl: 'http://delivery.localhost.com',
         methods: {
             authenticated    : '/api/authenticated',
             products         : '/api/client/products',
@@ -27,11 +29,12 @@ angular
             cupom            : '/api/cupom/:code',
 
             deliverymanOrder : '/api/deliveryman/order/:id',
-
-        }
+        },
+        pusherKey: '8dbc5aefb2eadbefc98b'
     })
 
-    .run(function($ionicPlatform) {
+    .run(function($ionicPlatform, $window, appConfig) {
+        $window.client = new Pusher(appConfig.pusherKey);
         $ionicPlatform.ready(function() {
             if(window.cordova && window.cordova.plugins.Keyboard) {
                 // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -113,6 +116,12 @@ angular
                 url:'/view_order/:id',
                 templateUrl: 'templates/client/view_order.html',
                 controller: 'OrderViewCtrl'
+            })
+            .state('client.view_delivery',{
+                cache: false,
+                url: '/view_delivery/:id',
+                templateUrl: 'templates/client/view_delivery.html',
+                controller: 'ClientViewDeliveryCtrl'
             })
             .state('deliveryman', {
                 cache: false,

@@ -12,12 +12,21 @@
         <link href="css/ionic.app.css" rel="stylesheet">
         -->
 
+        <script src="lib/jquery/dist/jquery.min.js"></script>
         <!-- ionic/angularjs js -->
         <script src="lib/ionic/js/ionic.bundle.js"></script>
         <script src="lib/angular-cookies/angular-cookies.min.js"></script>
         <script src="lib/query-string/query-string.js"></script>
         <script src="lib/angular-oauth2/dist/angular-oauth2.min.js"></script>
         <script src="lib/angular-resource/angular-resource.min.js"></script>
+        <!-- Angular Google Maps -->
+        <script src="lib/lodash/dist/lodash.min.js"></script>
+        <script src="lib/angular-simple-logger/dist/angular-simple-logger.min.js"></script>
+        <script src="lib/angular-google-maps/dist/angular-google-maps.min.js"></script>
+        <!-- pusher -->
+        <script src="lib/pusher-websocket-iso/dist/web/pusher.js"></script>
+        <script src="lib/pusher-angular/lib/pusher-angular.min.js"></script>
+        <script src="lib/jquery.easing/js/jquery.easing.min.js"></script>
 
         <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
         <!-- cordova script (this will be a 404 during development) -->
@@ -33,6 +42,7 @@
         <script src="js/controllers/client/checkoutDetail.js"></script>
         <script src="js/controllers/client/checkoutSucessful.js"></script>
         <script src="js/controllers/client/viewProduct.js"></script>
+        <script src="js/controllers/client/viewDelivery.js"></script>
         <script src="js/controllers/client/order.js"></script>
         <script src="js/controllers/client/viewOrder.js"></script>
         <!-- deliveryman -->
@@ -47,12 +57,18 @@
         <script src="js/services/cart.js"></script>
         <script src="js/services/cupom.js"></script>
         <script src="js/services/userData.js"></script>
+        <script src="js/services/map.js"></script>
 
         <script src="js/filters/join.js"></script>
     </head>
     <body ng-app="starter">
 
     <ion-nav-view></ion-nav-view>
-
+    <script src='//maps.googleapis.com/maps/api/js?key=AIzaSyDY-G6WVikWPv2z1FeXTwEvB1ccnPSZMxA'></script>
+    <script src='lib/marker-animate-unobtrusive/vendor/markerAnimate.js'></script>
+    <script src='lib/marker-animate-unobtrusive/dist/SlidingMarker.min.js'></script>
+    <script type="text/javascript">
+        SlidingMarker.initializeGlobally();
+    </script>
     </body>
 </html>

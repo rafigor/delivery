@@ -3,7 +3,9 @@ angular.module('starter.controllers')
         '$scope', '$stateParams', '$ionicLoading', '$ionicPopup', 'DeliverymanOrder', '$cordovaGeolocation',
         function($scope, $stateParams, $ionicLoading, $ionicPopup, DeliverymanOrder, $cordovaGeolocation){
 
-            var watch;
+            var watch,
+                lat = null,
+                long = null;
 
             $scope.order = {};
 
@@ -38,9 +40,15 @@ angular.module('starter.controllers')
                     watch.then(null, function(dataError){
                         //error
                     }, function(position){
+                        if (!lat) {
+                            lat = position.coords.latitude;
+                            long = position.coords.longitude;
+                        } else {
+                            long += 0.0444;
+                        }
                         DeliverymanOrder.geo({id: $stateParams.id}, {
-                            lat: position.coords.latitude,
-                            long: position.coords.longitude
+                            lat: lat,
+                            long: long
                         });
                     });
                 }, function(dataError){
@@ -52,7 +60,6 @@ angular.module('starter.controllers')
             };
 
             function stopWatchPosition(){
-                console.log(watch);
                 if(watch && typeof watch == 'object' && watch.hasOwnProperty('watchID')){
                     $cordovaGeolocation.clearWatch(watch.watchID);
                 }
