@@ -6,8 +6,8 @@ angular.module('starter.services')
             }
         });
     }])
+    
     .factory('DeliverymanOrder',['$resource', 'appConfig', function($resource, appConfig){
-
         return $resource(appConfig.baseUrl + appConfig.methods.deliverymanOrder, {id: '@id'}, {
             query: {
                 isArray: false

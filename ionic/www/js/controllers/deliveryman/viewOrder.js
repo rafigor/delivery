@@ -1,7 +1,7 @@
 angular.module('starter.controllers')
     .controller('DeliverymanViewOrderCtrl', [
-        '$scope', '$stateParams', '$ionicLoading', '$ionicPopup', 'DeliverymanOrder', '$cordovaGeolocation',
-        function($scope, $stateParams, $ionicLoading, $ionicPopup, DeliverymanOrder, $cordovaGeolocation){
+        '$scope', '$state', '$stateParams', '$ionicLoading', '$ionicPopup', 'DeliverymanOrder', '$cordovaGeolocation',
+        function($scope, $state, $stateParams, $ionicLoading, $ionicPopup, DeliverymanOrder, $cordovaGeolocation){
 
             var watch,
                 lat = null,
@@ -23,6 +23,21 @@ angular.module('starter.controllers')
                     template: 'Não foi possível buscar o pedidos. Tente novamente'
                 });
             });
+
+            $scope.updateOrderDelivered = function(){
+                DeliverymanOrder.update({id: $stateParams.id}, {status: 2}, function(data) {
+                    $ionicPopup.alert({
+                        title: 'Advertência',
+                        template: 'Pedido entregue com sucesso.'
+                    });
+                    $state.go('deliveryman.orders');
+                }, function(dataError){
+                    $ionicPopup.alert({
+                        title: 'Advertência',
+                        template: 'Não foi possível atualizar o status do pedido. Tente novamente'
+                    });
+                });
+            };
 
             $scope.goToDelivery = function(){
                 $ionicPopup.alert({
