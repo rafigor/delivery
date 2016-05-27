@@ -25,7 +25,8 @@
       "locator": "https://github.com/phonegap/phonegap-plugin-barcodescanner.git",
       "id": "phonegap-plugin-barcodescanner"
     },
-    "cordova-plugin-geolocation"
+    "cordova-plugin-geolocation",
+    "phonegap-plugin-push@1.5.3"
   ],
   "cordovaPlatforms": [
     "android"

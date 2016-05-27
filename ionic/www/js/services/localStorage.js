@@ -6,7 +6,7 @@ angular.module('starter.services')
                 return $window.localStorage[key];
             },
             get: function(key, defaultValue){
-                return $windows.localStorage[key] || defaultValue;
+                return $window.localStorage[key] || defaultValue;
             },
             setObject: function(key, value){
                 $window.localStorage[key] = JSON.stringify(value);

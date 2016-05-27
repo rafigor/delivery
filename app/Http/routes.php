@@ -75,8 +75,9 @@ Route::group(['middleware' => 'cors'], function(){
     });
 
     Route::group(['prefix' => 'api', 'middleware' => 'oauth'], function(){
-        Route::get ('authenticated', ['as' => 'authenticated', 'uses' => 'Api\ApiController@authenticated']);
-        Route::get ('cupom/{code}' , ['as' => 'cupom'        , 'uses' => 'Api\CupomController@show']);
+        Route::get   ('authenticated', ['as' => 'authenticated', 'uses' => 'Api\ApiController@authenticated']);
+        Route::patch ('device_token',  ['as' => 'authenticated', 'uses' => 'Api\ApiController@updateDeviceToken']);
+        Route::get   ('cupom/{code}' , ['as' => 'cupom'        , 'uses' => 'Api\CupomController@show']);
 
         Route::group(['prefix' => 'client', 'middleware' => 'oauth.checkrole:client'], function(){
             Route::resource('order', 'Api\Client\ClientCheckoutController', ['except' => ['create', 'edit', 'destroy']]);

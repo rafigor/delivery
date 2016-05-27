@@ -7,6 +7,10 @@ angular.module('starter.services')
             authenticated: {
                 method: 'GET',
                 url: appConfig.baseUrl + appConfig.methods.authenticated
+            },
+            updateDeviceToken: {
+                method: 'patch',
+                url: appConfig.baseUrl + appConfig.methods.device_token
             }
         });
     }]);

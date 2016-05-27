@@ -10,6 +10,7 @@ angular.module('starter.filters', []);
 angular
     .module('starter', [
         'ionic',
+        'ionic.service.core',
         'starter.controllers',
         'starter.services',
         'starter.filters',
@@ -20,10 +21,11 @@ angular
         'pusher-angular'
     ])
     .constant('appConfig',{
-        // baseUrl: 'http://ec2-52-39-91-55.us-west-2.compute.amazonaws.com',
-        baseUrl: 'http://delivery.localhost.com',
+        baseUrl: 'http://ec2-52-39-91-55.us-west-2.compute.amazonaws.com',
+        // baseUrl: 'http://delivery.localhost.com',
         methods: {
             authenticated    : '/api/authenticated',
+            device_token     : '/api/device_token',
             products         : '/api/client/products',
             clientOrder      : '/api/client/order/:id',
             cupom            : '/api/cupom/:code',
@@ -33,7 +35,7 @@ angular
         pusherKey: '8dbc5aefb2eadbefc98b'
     })
 
-    .run(function($ionicPlatform, $window, appConfig) {
+    .run(function($ionicPlatform, $window, appConfig, $localStorage) {
         $window.client = new Pusher(appConfig.pusherKey);
         $ionicPlatform.ready(function() {
             if(window.cordova && window.cordova.plugins.Keyboard) {
@@ -49,6 +51,16 @@ angular
             if(window.StatusBar) {
                 StatusBar.styleDefault();
             }
+            Ionic.io();
+            var push = new Ionic.Push({
+                debug: true,
+                onNotification: function(message){
+                    console.log(message);
+                }
+            });
+            push.register(function(token) {
+                $localStorage.set('device_token', token.token);
+            });
         });
     })
 
