@@ -21,7 +21,8 @@ angular
         'pusher-angular'
     ])
     .constant('appConfig',{
-        baseUrl: 'http://delivery.localhost.com',
+        baseUrl: 'http://ec2-52-39-91-55.us-west-2.compute.amazonaws.com',
+        // baseUrl: 'http://delivery.localhost.com',
         methods: {
             authenticated    : '/api/authenticated',
             device_token     : '/api/device_token',
