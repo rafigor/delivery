@@ -1,13 +1,13 @@
 angular.module('starter.controllers')
     .controller('LoginCtrl', [
-        '$scope', 'OAuth', 'OAuthToken', '$ionicPopup', '$state', 'UserData', 'User', '$localStorage',
-        function($scope, OAuth, OAuthToken, $ionicPopup, $state, UserData, User, $localStorage){
+        '$scope', 'OAuth', 'OAuthToken', '$ionicPopup', 'UserData', 'User', '$localStorage', '$redirect',
+        function($scope, OAuth, OAuthToken, $ionicPopup, UserData, User, $localStorage, $redirect){
 
         $scope.user = {
             username: 'user@user.com',
             password: '123456'
         };
-
+            
         $scope.login = function(){
 
             var promisse = OAuth.getAccessToken($scope.user);
@@ -21,11 +21,7 @@ angular.module('starter.controllers')
                 })
                 .then(function(data){
                     UserData.set(data.data);
-                    if(data.data.role == 'client') {
-                        $state.go('client.orders');
-                    } else if(data.data.role == 'deliveryman'){
-                        $state.go('deliveryman.orders');
-                    }
+                    $redirect.redirectAfterLogin();
                 }, function(responseError){
                     UserData.set({});
                     OAuthToken.removeToken();

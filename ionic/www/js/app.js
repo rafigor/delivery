@@ -21,8 +21,8 @@ angular
         'pusher-angular'
     ])
     .constant('appConfig',{
-        baseUrl: 'http://ec2-52-39-91-55.us-west-2.compute.amazonaws.com',
-        // baseUrl: 'http://delivery.localhost.com',
+        // baseUrl: 'http://ec2-52-39-91-55.us-west-2.compute.amazonaws.com',
+        baseUrl: 'http://delivery.localhost.com',
         methods: {
             authenticated    : '/api/authenticated',
             device_token     : '/api/device_token',
@@ -32,7 +32,11 @@ angular
 
             deliverymanOrder : '/api/deliveryman/order/:id',
         },
-        pusherKey: '8dbc5aefb2eadbefc98b'
+        pusherKey: '8dbc5aefb2eadbefc98b',
+        redirectAfterLogin: {
+            client: 'client.orders',
+            deliveryman: 'deliveryman.orders'
+        }
     })
 
     .run(function($ionicPlatform, $window, appConfig, $localStorage) {
@@ -51,6 +55,7 @@ angular
             if(window.StatusBar) {
                 StatusBar.styleDefault();
             }
+            // ionic config set dev_push true
             Ionic.io();
             var push = new Ionic.Push({
                 debug: true,
@@ -89,9 +94,14 @@ angular
 
         $stateProvider
             .state('login', {
+                cache: false,
                 url: "/login",
                 templateUrl: "templates/login.html",
                 controller: 'LoginCtrl'
+            })
+            .state('logout', {
+                url: "/logout",
+                controller: 'LogoutCtrl'
             })
             .state('client', {
                 cache: false,

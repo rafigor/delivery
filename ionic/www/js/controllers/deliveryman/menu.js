@@ -5,6 +5,10 @@ angular.module('starter.controllers')
             name: ''
         };
 
+        $scope.logout = function(){
+            $state.go('logout');
+        };
+
         $ionicLoading.show({
             template: 'Carregando...'
         });

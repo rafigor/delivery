@@ -6,5 +6,9 @@ angular.module('starter.controllers')
             $scope.userAuthenticated = {
                 name: UserData.get().name
             };
+
+            $scope.logout = function(){
+                $state.go('logout');
+            };
         }
     ]);
