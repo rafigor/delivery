@@ -4,8 +4,13 @@ angular.module('starter.controllers')
         function($scope, $state, UserData){
 
             $scope.userAuthenticated = {
-                name: UserData.get().name
+                name: ''
             };
+
+            var user = UserData.get();
+            if (user != null && user.hasOwnProperty('name')){
+                $scope.userAuthenticated.name = user.name;
+            }
 
             $scope.logout = function(){
                 $state.go('logout');
