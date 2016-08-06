@@ -6,6 +6,7 @@
     "type": "project",
     "minimum-stability":"dev",
     "require": {
+        "fzaninotto/faker": "~1.4",
         "php": ">=5.5.9",
         "laravel/framework": "5.1.*",
         "prettus/l5-repository": "^2.1",
