@@ -13,7 +13,7 @@ class OrderTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Order::class, 10)->create()->each(function($o){
+        /**factory(Order::class, 10)->create()->each(function($o){
             for($i=0; $i<=2; $i++){
                 $o->items()->save(factory(OrderItem::class)->make([
                     'product_id' => rand(1,5),
@@ -21,6 +21,6 @@ class OrderTableSeeder extends Seeder
                     'price' => 50
                 ]));
             }
-        });
+        });**/
     }
 }
