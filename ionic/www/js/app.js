@@ -26,8 +26,8 @@ angular
         'http-auth-interceptor'
     ])
     .constant('appConfig',{
-        // baseUrl: 'http://ec2-52-39-91-55.us-west-2.compute.amazonaws.com',
-        baseUrl: 'http://delivery.localhost.com',
+        baseUrl: 'https://delivery-l51.herokuapp.com/',
+        // baseUrl: 'http://delivery.localhost.com',
         methods: {
             authenticated    : '/api/authenticated',
             device_token     : '/api/device_token',
